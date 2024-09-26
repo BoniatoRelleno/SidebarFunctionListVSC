@@ -1,0 +1,65 @@
+{
+  "name": "sidebar-function-list",
+  "displayName": "Sidebar Function List",
+  "description": "La extensión Sidebar Function List añade una lista interactiva de funciones en la barra lateral derecha de Visual Studio Code, inspirada en la funcionalidad de Notepad++. Esta herramienta es ideal para desarrolladores que trabajan en proyectos con archivos grandes o funciones largas, ya que permite una navegación rápida y eficiente por el código. Solo necesitas usar el comando 'Show Function List'.",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.93.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [],
+  "main": "./out/extension.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/BoniatoRelleno/SidebarFunctionListVSC"
+  },
+  "contributes": {
+    "commands": [
+      {
+        "command": "extension.showFunctionList",
+        "title": "Show Function List"
+      }
+    ],
+    
+    
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "sidebarFunctionList",
+          "title": "Function List",
+          "icon": "resources/icon.png"
+        }
+      ]
+    },
+    "views": {
+      "sidebarFunctionList": [ 
+        {
+          "id": "functionListView",
+          "name": "Functions",
+          "type": "tree"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src",
+    "test": "vscode-test"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.93.0",
+    "@types/mocha": "^10.0.7",
+    "@types/node": "20.x",
+    "@typescript-eslint/eslint-plugin": "^8.3.0",
+    "@typescript-eslint/parser": "^8.3.0",
+    "eslint": "^9.9.1",
+    "typescript": "^5.5.4",
+    "@vscode/test-cli": "^0.0.10",
+    "@vscode/test-electron": "^2.4.1"
+  }
+}
