@@ -1,5 +1,12 @@
 # Changelog
 
+### 0.0.2
+
+- Changed minimum version to 1.64.0
+- Added marketplace icon
+- Function list icon changed
+- Command 'Show Function List' result in error fixed
+
 ### 0.0.1
 
 - Initial release

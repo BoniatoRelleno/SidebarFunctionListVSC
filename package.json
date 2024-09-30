@@ -2,11 +2,12 @@
   "name": "sidebar-function-list",
   "displayName": "Sidebar Function List",
   "description": "Show a function list of the opened file at the sidebar",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "engines": {
-    "vscode": "^1.93.0"
+    "vscode": "^1.64.0"
   },
   "publisher": "Boniato",
+  "icon": "resources/icon.png",
   "categories": [
     "Other"
   ],
@@ -19,18 +20,16 @@
   "contributes": {
     "commands": [
       {
-        "command": "extension.showFunctionList",
+        "command": "sidebar-function-list.showFunctionList",
         "title": "Show Function List"
       }
     ],
-    
-    
     "viewsContainers": {
       "activitybar": [
         {
           "id": "sidebarFunctionList",
           "title": "Function List",
-          "icon": "resources/icon.png"
+          "icon": "resources/function_list_icon.png"
         }
       ]
     },
@@ -53,7 +52,7 @@
     "test": "vscode-test"
   },
   "devDependencies": {
-    "@types/vscode": "^1.93.0",
+    "@types/vscode": "^1.64.0",
     "@types/mocha": "^10.0.7",
     "@types/node": "20.x",
     "@typescript-eslint/eslint-plugin": "^8.3.0",

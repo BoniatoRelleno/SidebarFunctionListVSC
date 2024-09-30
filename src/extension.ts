@@ -5,8 +5,8 @@ export function activate(context: vscode.ExtensionContext) {
 
 	// Register commands
 	const showFunctionList = vscode.commands.registerCommand('sidebar-function-list.showFunctionList', () => {
-        vscode.window.showInformationMessage('Show Function List command executed');
 		moveViewToSecondarySideBar();
+		vscode.window.showInformationMessage('Show Function List command executed');
     });
 
 	const navigateToFunction = vscode.commands.registerCommand('sidebar-function-list.navigateToFunction', (range: vscode.Range) => {
