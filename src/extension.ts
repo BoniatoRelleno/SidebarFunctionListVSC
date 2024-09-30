@@ -43,10 +43,14 @@ export function activate(context: vscode.ExtensionContext) {
     };
 
 	// Save listener to refresh the function list
-    const saveTrigger = vscode.workspace.onWillSaveTextDocument(() => {
+    vscode.workspace.onWillSaveTextDocument(() => {
         treeDataProvider.refresh(); // Refresca la vista de funciones
     });
-    context.subscriptions.push(saveTrigger);
+
+	// Change active file listener to refresh the function list
+	vscode.window.onDidChangeActiveTextEditor(() => {
+        treeDataProvider.refresh();
+    });
 }
 
 class FunctionListTreeDataProvider implements vscode.TreeDataProvider<FunctionItem> {

@@ -1,11 +1,12 @@
 {
   "name": "sidebar-function-list",
   "displayName": "Sidebar Function List",
-  "description": "La extensión Sidebar Function List añade una lista interactiva de funciones en la barra lateral derecha de Visual Studio Code, inspirada en la funcionalidad de Notepad++. Esta herramienta es ideal para desarrolladores que trabajan en proyectos con archivos grandes o funciones largas, ya que permite una navegación rápida y eficiente por el código. Solo necesitas usar el comando 'Show Function List'.",
+  "description": "Show a function list of the opened file at the sidebar",
   "version": "0.0.1",
   "engines": {
     "vscode": "^1.93.0"
   },
+  "publisher": "Boniato",
   "categories": [
     "Other"
   ],

@@ -1,71 +1,34 @@
-# sidebar-function-list README
+# Sidebar Function List
 
-This is the README for your extension "sidebar-function-list". After writing up a brief description, we recommend including the following sections.
+The Sidebar Function List extension adds an interactive list of functions to the right sidebar of Visual Studio Code, inspired by the functionality of Notepad++. 
 
-## Features
+This tool is ideal for developers working on projects with large files or long functions, as it allows for quick and efficient code navigation. 
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+## How to use
 
-For example if there is an image subfolder under your extension project workspace:
+You only need to use the 'Show Function List' command at Command Palette.
 
-\!\[feature X\]\(images/feature-x.png\)
+![Show Function List](resources/readme1.png)
 
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
+Then you can see the function list at right sidebar. If you click one element you will navigate to the function declaration line!
 
-## Requirements
+![Function List](resources/readme2.png)
 
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+## Supported languages
 
-## Extension Settings
+At the moment, it works with all languages that use the 'function' keyword for function declaration, such as JavaScript or PHP.
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
+## Github
 
-For example:
+Developed by Boniato, you can report issues at the [Github Repository](https://github.com/BoniatoRelleno/SidebarFunctionListVSC).
 
-This extension contributes the following settings:
+## License
 
-* `myExtension.enable`: Enable/disable this extension.
-* `myExtension.thing`: Set to `blah` to do something.
+[MIT License](LICENSE.md)
 
-## Known Issues
+## Changelog
 
-Calling out known issues can help limit users opening duplicate issues against your extension.
+### 0.0.1
 
-## Release Notes
+- Initial release
 
-Users appreciate release notes as you update your extension.
-
-### 1.0.0
-
-Initial release of ...
-
-### 1.0.1
-
-Fixed issue #.
-
-### 1.1.0
-
-Added features X, Y, and Z.
-
----
-
-## Following extension guidelines
-
-Ensure that you've read through the extensions guidelines and follow the best practices for creating your extension.
-
-* [Extension Guidelines](https://code.visualstudio.com/api/references/extension-guidelines)
-
-## Working with Markdown
-
-You can author your README using Visual Studio Code. Here are some useful editor keyboard shortcuts:
-
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux).
-* Toggle preview (`Shift+Cmd+V` on macOS or `Shift+Ctrl+V` on Windows and Linux).
-* Press `Ctrl+Space` (Windows, Linux, macOS) to see a list of Markdown snippets.
-
-## For more information
-
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
-
-**Enjoy!**
