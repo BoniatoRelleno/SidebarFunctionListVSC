@@ -14,6 +14,14 @@ Then you can see the function list at right sidebar. If you click one element yo
 
 ![Function List](resources/readme2.png)
 
+You can also sort alphabetically or search the list with the icons above or by using the commands 'Sort Function List' and 'Filter Functions' if you prefer.
+
+![Sort And Search Icons](resources/readme3.png)
+
+![Sort Function List](resources/readme4.png)
+
+![Filter Functions](resources/readme5.png)
+
 ## Supported languages
 
 At the moment, it works with all languages that use the 'function' keyword for function declaration, such as JavaScript or PHP.
@@ -27,6 +35,11 @@ Developed by Boniato, you can report issues at the [Github Repository](https://g
 [MIT License](LICENSE.md)
 
 ## Changelog
+
+### 0.0.3
+
+- Added alphabetical sorting
+- Added search filter
 
 ### 0.0.2
 

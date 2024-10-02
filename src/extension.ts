@@ -1,6 +1,9 @@
 
 import * as vscode from 'vscode';
 
+let isSorted = false;
+let filterText = '';
+
 export function activate(context: vscode.ExtensionContext) {
 
 	// Register commands
@@ -12,13 +15,38 @@ export function activate(context: vscode.ExtensionContext) {
 	const navigateToFunction = vscode.commands.registerCommand('sidebar-function-list.navigateToFunction', (range: vscode.Range) => {
         const editor = vscode.window.activeTextEditor;
         if (editor) {
-            editor.selection = new vscode.Selection(range.start, range.start); // Mueve el cursor al inicio de la función
-            editor.revealRange(range); // Revela el rango de la función en el editor
+            editor.selection = new vscode.Selection(range.start, range.start);
+            editor.revealRange(range);
         }
     });
 
+	const sortFunctionList = vscode.commands.registerCommand('sidebar-function-list.sortFunctionList', () => {
+		isSorted = !isSorted;
+		treeDataProvider.refresh();
+		vscode.window.showInformationMessage(`Function list ${isSorted ? 'sorted' : 'unsorted'}`);
+	});
+
+	const showFilterBox = vscode.commands.registerCommand('sidebar-function-list.showFilterBox', () => {
+        filterText = '';
+		treeDataProvider.refresh();
+		
+		const inputBox = vscode.window.createInputBox();
+        inputBox.prompt = 'Type to filter functions';
+        inputBox.onDidChangeValue(value => {
+            filterText = value;
+            treeDataProvider.refresh();
+        });
+        inputBox.onDidAccept(() => {
+            inputBox.hide();
+        });
+        inputBox.show();
+    });
+
+    context.subscriptions.push(showFilterBox);
+
     context.subscriptions.push(showFunctionList);
     context.subscriptions.push(navigateToFunction);
+	context.subscriptions.push(sortFunctionList);
 
 	// Register function list view
     const treeDataProvider = new FunctionListTreeDataProvider();
@@ -81,7 +109,18 @@ class FunctionListTreeDataProvider implements vscode.TreeDataProvider<FunctionIt
 
 		if (!element) {
 			const text = vscode.window.activeTextEditor.document.getText();
-			return Promise.resolve(this.getFunctions(text));
+			const functions = this.getFunctions(text);
+
+			//sort list
+			if (isSorted) {
+				functions.sort((a, b) => a.label.localeCompare(b.label));
+			}
+
+			//filter list
+			const filteredFunctions = functions.filter(func => func.label.toLowerCase().includes(filterText.toLowerCase()));
+
+
+			return Promise.resolve(filteredFunctions);
 		}
 
 		return Promise.resolve(element.children);
