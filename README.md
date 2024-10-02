@@ -14,9 +14,11 @@ Then you can see the function list at right sidebar. If you click one element yo
 
 ![Function List](resources/readme2.png)
 
-You can also sort alphabetically or search the list with the icons above or by using the commands 'Sort Function List' and 'Filter Functions' if you prefer.
+You can also sort alphabetically or search the list with the icons above.
 
 ![Sort And Search Icons](resources/readme3.png)
+
+ Or by using the commands 'Sort Function List' and 'Filter Functions' if you prefer.
 
 ![Sort Function List](resources/readme4.png)
 
