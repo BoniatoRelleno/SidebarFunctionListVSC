@@ -28,6 +28,8 @@ You can also sort alphabetically or search the list with the icons above.
 
 At the moment, it works with all languages that use the 'function' keyword for function declaration, such as JavaScript or PHP.
 
+Now also works with Python files.
+
 ## Github
 
 Developed by Boniato, you can report issues at the [Github Repository](https://github.com/BoniatoRelleno/SidebarFunctionListVSC).

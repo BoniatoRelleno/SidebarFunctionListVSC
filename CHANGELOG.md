@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.0
+
+- Added Python support
+
 ## 0.0.3
 
 - Added alphabetical sorting

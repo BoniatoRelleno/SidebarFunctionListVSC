@@ -1,4 +1,5 @@
 
+import { Console, log } from 'console';
 import * as vscode from 'vscode';
 
 let isSorted = false;
@@ -128,7 +129,18 @@ class FunctionListTreeDataProvider implements vscode.TreeDataProvider<FunctionIt
 
     private getFunctions(code: string, originalStartIndex = 0): FunctionItem[] {
 		
-		const functionRegex = /\bfunction\s+(\w+)\s*\(([^)]*)\)\s*\{/g;
+		// Detect the file language
+		const languageId = vscode.window.activeTextEditor?.document.languageId;
+		let functionRegex: RegExp;
+
+		if (languageId === 'python') {
+			// Python function regex
+			functionRegex = /^[\t \w]*def\s+(\w+)\s*\(([^)]*)\)\s*:/gm;
+		} else {
+			// Default regex for other languages (e.g., JavaScript, TypeScript)
+			functionRegex = /\bfunction\s+(\w+)\s*\(([^)]*)\)\s*\{/g;
+		}
+
 		let matches;
 		const functions: FunctionItem[] = [];
 
@@ -137,55 +149,82 @@ class FunctionListTreeDataProvider implements vscode.TreeDataProvider<FunctionIt
 		}
 	
 		let lastEnd = 0;
+		var initial_level = 0;
 
 		while ((matches = functionRegex.exec(code)) !== null) {
 			const startIndex = matches.index;
 			if (lastEnd > startIndex) {
 				continue;
 			}
-			let braceCount = 1;
-			let endIndex = startIndex + matches[0].length;
-	
-			// Find function end
-			while (endIndex < code.length && braceCount > 0) {
-				if (code[endIndex] === '{') {
-					braceCount++;
-				} else if (code[endIndex] === '}') {
-					braceCount--;
+			let endIndex = 0;
+			if (vscode.window.activeTextEditor.document.languageId === 'python') {
+				// Python
+				if (endIndex == 0) {
+					initial_level = this.getIndentationLevel(code.substring(code.lastIndexOf('\n', startIndex) + 1, code.indexOf('\n',startIndex))); // Cambiado para obtener el nivel de indentación al inicio de la línea
 				}
-				endIndex++;
+				endIndex = code.indexOf('\n', startIndex);
+				if (endIndex === -1) {
+					endIndex = code.length;
+				}
+				let level = initial_level + 1;
+				while (level > initial_level && endIndex < code.length) {
+					endIndex = code.indexOf('\n', endIndex + 1) + 1;
+					if (endIndex === -1) {
+						endIndex = code.length;
+						break;
+					}
+					level = this.getIndentationLevel(code.substring(endIndex, code.indexOf('\n', endIndex)));
+				}
+
+			} else {
+				// Other languages
+				let braceCount = 1;
+				endIndex = startIndex + matches[0].length;
+				while (endIndex < code.length && braceCount > 0) {
+					if (code[endIndex] === '{') {
+						braceCount++;
+					} else if (code[endIndex] === '}') {
+						braceCount--;
+					}
+					endIndex++;
+				}
 			}
 	
 			// Add function to the list
-			if (braceCount === 0) {
+			
+			lastEnd = endIndex;
 
-				lastEnd = endIndex;
+			const functionName = matches[1];
 
-				const functionName = matches[1];
+			const range = new vscode.Range(
+				vscode.window.activeTextEditor.document.positionAt(startIndex + originalStartIndex), 
+				vscode.window.activeTextEditor.document.positionAt(endIndex - 1 + originalStartIndex)
+			);
 
-				const range = new vscode.Range(
-                    vscode.window.activeTextEditor.document.positionAt(startIndex + originalStartIndex), 
-                    vscode.window.activeTextEditor.document.positionAt(endIndex - 1 + originalStartIndex)
-                );
+			const functionItem: FunctionItem = {
+				label: functionName,
+				collapsibleState: vscode.TreeItemCollapsibleState.None,
+				range: range,
+				children: this.getFunctions(code.substring(startIndex + matches[0].length, endIndex - 1), startIndex + matches[0].length + originalStartIndex) // Find inner functions recursively
+			};
 
-				const functionItem: FunctionItem = {
-					label: functionName,
-					collapsibleState: vscode.TreeItemCollapsibleState.None,
-					range: range,
-					children: this.getFunctions(code.substring(startIndex + matches[0].length,endIndex - 1), startIndex + matches[0].length + originalStartIndex) //find inner functions recursively
-				};
-
-				if (functionItem.children.length > 0) {
-                    functionItem.collapsibleState = vscode.TreeItemCollapsibleState.Collapsed;
-                }
-
-				functions.push(functionItem);
+			if (functionItem.children.length > 0) {
+				functionItem.collapsibleState = vscode.TreeItemCollapsibleState.Collapsed;
 			}
+
+			functions.push(functionItem);
+			
 		}
 	
 		return functions;
 	}
+
+	// Función auxiliar para obtener el nivel de indentación
+	private getIndentationLevel(line: string): number {
+		return line.match(/^\s*/)?.[0].length || 0;
+	}
 }
+
 
 class FunctionItem extends vscode.TreeItem {
     constructor(

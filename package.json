@@ -2,7 +2,7 @@
   "name": "sidebar-function-list",
   "displayName": "Sidebar Function List",
   "description": "Show a function list of the opened file at the sidebar",
-  "version": "0.0.3",
+  "version": "1.0.0",
   "engines": {
     "vscode": "^1.64.0"
   },
