@@ -40,7 +40,7 @@ Developed by Boniato, you can report issues at the [Github Repository](https://g
 
 ## Changelog
 
-## 1.0.0
+### 1.0.0
 
 - Added Python support
 
